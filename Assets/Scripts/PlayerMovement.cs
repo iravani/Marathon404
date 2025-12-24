@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
     public Rigidbody2D rb;
     public float speed;
+
+    [Header("Attack")]
+    public GameObject projectile;
 
     Vector2 moveDirection;
 
