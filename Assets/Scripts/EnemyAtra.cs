@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -8,6 +9,7 @@ public class EnemyAtra : MonoBehaviour
     public GameObject target;
     public float speed;
     public float error = 0.1f;
+    public Animator camAnim;
     void FixedUpdate()
     {
         dir = target.transform.position - gameObject.transform.position;
@@ -19,5 +21,14 @@ public class EnemyAtra : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
         }
+
     }
+
+    public void Die()
+    {
+        camAnim.SetTrigger("Shake");
+        Time.timeScale = 0.3f;
+        gameObject.SetActive(false);
+    }
+    
 }
