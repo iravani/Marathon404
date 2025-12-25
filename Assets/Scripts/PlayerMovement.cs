@@ -1,4 +1,6 @@
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 
 public class PlayerMovement : MonoBehaviour
@@ -6,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public Rigidbody2D rb;
     public float speed;
+    public Vector2 velocityOffset;
+    public float velocityForceFieldAdder = 20;
 
     [Header("Attack")]
     public GameObject projectile;
@@ -17,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     float timer = 0;
 
     Vector2 moveDirection;
+
 
     private void Update()
     {
@@ -54,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        rb.linearVelocity = moveDirection * speed;
+        rb.linearVelocity = moveDirection * speed + velocityOffset * velocityForceFieldAdder;
     }
 
     void Attack()
@@ -67,5 +72,18 @@ public class PlayerMovement : MonoBehaviour
         attackEffectRigidbody.linearVelocity = attackDirection * attackProjectileSpeed;
         attackEffectRigidbody.rotation = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
         Destroy(attackEffect, attckDestroyTime);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Trap")
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        SceneManager.LoadScene(0);
     }
 }
