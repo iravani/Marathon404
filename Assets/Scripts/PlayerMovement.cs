@@ -73,6 +73,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Attack()
     {
+        if(mousePointer.position.x > gameObject.transform.position.x)
+        {
+            playerGraphics.flipX = true;
+        }
+        else if(mousePointer.position.x < gameObject.transform.position.x)
+        {
+            playerGraphics.flipX = false;
+        }
         GameObject attackEffect = Instantiate(projectile);
         attackEffect.transform.position = gameObject.transform.position;
         Vector2 attackDirection = mousePointer.position - gameObject.transform.position;
