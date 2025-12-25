@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 velocityOffset;
     public float velocityForceFieldAdder = 20;
     public SpriteRenderer playerGraphics;
+    public ParticleSystem bubbles;
 
     [Header("Attack")]
     public GameObject projectile;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     float timer = 0;
 
     Vector2 moveDirection;
+    bool wentOut = false;
 
 
     private void Update()
@@ -64,6 +66,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+        if(wentOut && transform.position.y < 26)
+        {
+            bubbles.Play();
+            wentOut = false;
+            wentOut = false;
+        }
     }
 
     private void Move()
@@ -96,6 +104,10 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Trap")
         {
             Die();
+        }
+        else if(collision.gameObject.tag == "Bound")
+        {
+            wentOut = true;
         }
     }
 

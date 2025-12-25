@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Muzzle
   - Trap
+  - Bound
   layers:
   - Default
   - TransparentFX
