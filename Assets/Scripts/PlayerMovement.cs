@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public Vector2 velocityOffset;
     public float velocityForceFieldAdder = 20;
+    public SpriteRenderer playerGraphics;
 
     [Header("Attack")]
     public GameObject projectile;
@@ -40,6 +41,14 @@ public class PlayerMovement : MonoBehaviour
             moveDirection.x = Input.GetAxisRaw("Horizontal");
             moveDirection.y = Input.GetAxisRaw("Vertical");
             moveDirection.Normalize();
+            if(moveDirection.x > 0)
+            {
+                playerGraphics.flipX = true;
+            }else if (moveDirection.x < 0)
+            {
+                playerGraphics.flipX = false;
+
+            }
         }
         else
         {
